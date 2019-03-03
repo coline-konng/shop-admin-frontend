@@ -1,28 +1,56 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    
+    <div class="loginContainer">
+      <h2>登录</h2>
+      <el-form label-width="45px">
+        <el-form-item label="账号" >
+          <el-input type="text"  v-model="username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input type="password" v-model="userpassword"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="getuser">提交</el-button>
+          <el-button @click="reset">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data(){
+    return {
+      username:'',
+      userpassword:''
+    }
+  },
+  methods:{
+    getuser(){
+      console.log("账号："+this.username,"密码："+this.userpassword);
+    },
+    reset(){
+      this.username="";
+      this.userpassword="";
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped lang="css">
+.loginContainer{
+    width: 400px;
+    position:absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
+h2{
+      color: #409EFF;
+      text-align: center;
+      font-weight: normal;
+    }
 </style>
