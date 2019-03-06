@@ -14,6 +14,9 @@ import axios from 'axios';
 //导入组件
 import Login from './pages/Login.vue';
 import Admin from './pages/Admin.vue';
+import GoodsList from './pages/goods/GoodsList.vue';
+import CategoryList from './pages/category/CategoryList.vue';
+import GoodsAdd from './pages/goods/GoodsAdd.vue';
 
 // 把axios绑定到vue实例的属性$axios
 Vue.prototype.$axios = axios;
@@ -27,7 +30,17 @@ Vue.use(VueRouter);
 const routes = [
     { path: '/', redirect: '/admin' },
     { path: '/login', component: Login, meta: '登录页' },
-    { path: '/admin', component: Admin, meta: '首页' }
+    {
+        path: '/admin',
+        component: Admin,
+        meta: '首页',
+        redirect: '/admin/goods-list',
+        children: [
+            { path: 'goods-list', component: GoodsList, meta: '商品管理' },
+            { path: 'goods-add', component: GoodsAdd, meta: '新增商品' },
+            { path: 'category-list', component: CategoryList, meta: '栏目管理' }
+        ]
+    }
 ];
 //创建路由对象
 const router = new VueRouter({ routes });

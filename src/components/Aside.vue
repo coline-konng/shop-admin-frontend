@@ -8,10 +8,10 @@
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
       background-color="#001529"
-      text-color="#fff"
-      active-text-color="#ffd04b"
+      text-color="#666"
+      active-text-color="#fff"
     >
-      <el-submenu v-for="(item,index) in menus" :key="index" index="`${index+1}`">
+      <el-submenu v-for="(item,index) in menus" :key="index" :index="`${index+1}`">
 
         <template slot="title">
           <i :class="item.icon"></i>
@@ -21,9 +21,9 @@
         <el-menu-item-group>
           <el-menu-item v-for="(subItem,subIndex) in item.group"
            :key="subIndex"
-            index="`${index+1}-${subIndex+1}`">
-            <router-link :to="subItem.src"></router-link>
-            {{subItem.title}}
+            :index="`${index+1}-${subIndex+1}`">
+            <router-link :to="subItem.src">
+            {{subItem.title}}</router-link>
             </el-menu-item>
         </el-menu-item-group>
        
@@ -34,12 +34,12 @@
 
 <script>
 export default {
+  props:['isCollapse'],
   data() {
     return {
-      isCollapse: false,
       menus:[
         {icon:'el-icon-menu',title:'购物商城',group:[
-          {src:'#',title:'商品管理'},{src:'#',title:'栏目管理'}
+          {src:'/admin/goods-list',title:'商品管理'},{src:'/admin/category-list',title:'栏目管理'}
         ]},
         {icon:'el-icon-service',title:'会员管理',group:[
           {src:'#',title:'会员列表'}
