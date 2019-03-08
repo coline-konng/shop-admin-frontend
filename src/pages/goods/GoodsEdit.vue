@@ -26,7 +26,7 @@
       <el-input v-model="form.title"></el-input>
     </el-form-item>
     <el-form-item label="副标题">
-      <el-input v-model="form.subtitle"></el-input>
+      <el-input v-model="form.sub_title"></el-input>
     </el-form-item>
     <el-form-item label="封面图片">
       <el-upload
@@ -60,6 +60,7 @@
         :on-remove="handleRemove"
         :on-success="handleFileList"
         multiple
+        :file-list="form.fileList"
       >
         <i class="el-icon-plus"></i>
       </el-upload>
@@ -75,7 +76,7 @@
       <quillEditor v-model="form.content"></quillEditor>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit">立即创建</el-button>
+      <el-button type="primary" @click="onSubmit">保存</el-button>
       <el-button>取消</el-button>
     </el-form-item>
   </el-form>
@@ -120,7 +121,8 @@ export default {
       // 是否预览图片
       dialogVisible: false,
       //类别数据
-      categories: []
+      categories: [],
+      id:0
     };
   },
   components: {
@@ -130,7 +132,7 @@ export default {
     onSubmit() {
       //提交数据
       this.$axios({
-        url: "/admin/goods/add/goods",
+        url: `admin/goods/edit/${this.id}`,
         method: "POST",
         data: this.form,
         // 处理跨域
@@ -138,7 +140,7 @@ export default {
       }).then(res => {
         const { message, status } = res.data;
         if (status === 0) {
-          //新增成功
+          //保存成功
           this.$message({
             message: message,
             type: "success"
@@ -181,7 +183,15 @@ export default {
       return isLt2M;
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      if(fileList.length === 0){
+        this.$message({
+          type: "warning",
+          message: "至少保留一张图片"
+        });
+        return;
+      }
+      // 在编辑时候如果只有一张图片后台没法删除,至少保留一张图片
+      this.form.fileList = fileList
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
@@ -195,30 +205,24 @@ export default {
     }
   },
   mounted() {
+    // 获取动态路由id
+    const {id} = this.$route.params;
+    this.id = id;
     this.$axios({
-      url: "/admin/category/getlist/goods",
-      method: "GET"
+      url: `/admin/goods/getgoodsmodel/${id}`,
+      method: "GET",
     }).then(res => {
       //console.log(res);
       const { message } = res.data;
-      let categories = [];
-      message.forEach(element => {
-        //查找一级菜单，直接添加到categories
-        if (element.parent_id === 0) {
-          element.options = [];
-          categories.push(element);
-        } else {
-          //判断该element属于哪一个一级菜单，添加到该一级菜单的options中
-          categories.forEach(item => {
-            if (element.parent_id == item.category_id) {
-              //将element添加到当前item.options中
-              item.options.push(element);
-            }
-          });
+      this.form=message;
+      this.imageUrl=message.imgList[0].url;
+      this.form.fileList=message.fileList.map((v)=>{
+        return {
+            ...v,
+            // 覆盖 v 对象里面的url
+            url: `http://localhost:8899` + v.shorturl
         }
-      });
-      this.categories = categories;
-      //console.log(this.categories);
+      })
     });
   }
 };

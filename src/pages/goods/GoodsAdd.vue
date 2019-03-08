@@ -26,7 +26,7 @@
       <el-input v-model="form.title"></el-input>
     </el-form-item>
     <el-form-item label="副标题">
-      <el-input v-model="form.subtitle"></el-input>
+      <el-input v-model="form.sub_title"></el-input>
     </el-form-item>
     <el-form-item label="封面图片">
       <el-upload

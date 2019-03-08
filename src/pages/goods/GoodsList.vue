@@ -37,7 +37,7 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelGood(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
@@ -63,12 +63,6 @@ export default {
   data() {
     return {
       tableData: [
-        /* {
-          imgurl: "https://www.baidu.com/img/bd_logo1.png",
-          title: "2016-05-03",
-          categoryname: "王小虎",
-          sell_price: "上海市普陀区金沙江路 1518 弄"
-        } */
       ],
       searchInput: "",
       pageIndex: 1,
@@ -165,8 +159,8 @@ export default {
       this.getGoodsList();
     },
     // 点击编辑按钮时触发
-    handleEdit(){
-      this.$router.push('/admin/goods-edit');
+    handleEdit(val){
+      this.$router.push(`/admin/goods-edit/${val.id}`);
     }
   },
   filters: {

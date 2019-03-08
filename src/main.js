@@ -41,7 +41,7 @@ const routes = [
         children: [
             { path: 'goods-list', component: GoodsList, meta: '商品管理' },
             { path: 'goods-add', component: GoodsAdd, meta: '新增商品' },
-            { path: 'goods-edit', component: GoodsEdit, meta: '编辑商品' },
+            { path: 'goods-edit/:id', component: GoodsEdit, meta: '编辑商品' },
             { path: 'category-list', component: CategoryList, meta: '栏目管理' }
         ]
     }
