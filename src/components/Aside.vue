@@ -53,7 +53,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+.el-aside a {
+  color: inherit;
+  text-decoration: none;
+}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;

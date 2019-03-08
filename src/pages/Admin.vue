@@ -43,7 +43,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .admin-container {
   position: fixed;
   top: 0;
@@ -58,10 +58,6 @@ export default {
 .el-aside {
   display: flex;
   flex-direction: column;
-}
-.el-aside a {
-  color: inherit;
-  text-decoration: none;
 }
 .el-main {
   background-color: #e9eef3;
@@ -79,9 +75,6 @@ export default {
 
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
-}
-.el-input{
-  width: auto;
 }
 .logo {
   height: 60px;

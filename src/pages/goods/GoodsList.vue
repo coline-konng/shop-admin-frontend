@@ -6,7 +6,7 @@
         <el-button @click="handleDelGood(idsStr)">删除</el-button>
       </div>
       <div class="search">
-        <el-input v-model="searchInput" placeholder="请输入内容"></el-input>
+        <el-input v-model="searchInput" placeholder="请输入内容" class="searchInput"></el-input>
         <el-button icon="el-icon-search" @click="handleSearch"></el-button>
       </div>
     </el-row>
@@ -163,6 +163,10 @@ export default {
       this.pageIndex = 1;
       // 重新请求数据
       this.getGoodsList();
+    },
+    // 点击编辑按钮时触发
+    handleEdit(){
+      this.$router.push('/admin/goods-edit');
     }
   },
   filters: {
@@ -179,5 +183,8 @@ export default {
 
 .goods-img {
   margin-right: 10px;
+}
+.searchInput{
+  width: auto;
 }
 </style>

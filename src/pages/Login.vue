@@ -5,10 +5,10 @@
       <h2>登录</h2>
       <el-form label-width="45px">
         <el-form-item label="账号" >
-          <el-input type="text"  v-model="userform.username"></el-input>
+          <el-input type="text"  v-model="userform.uname"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input type="password" v-model="userform.userpassword"></el-input>
+          <el-input type="password" v-model="userform.upwd"></el-input>
         </el-form-item>
         <el-form-item class="button-list">
           <el-button type="primary" @click="getuser">提交</el-button>
@@ -26,16 +26,33 @@ export default {
   data(){
     return {
         userform:{
-            username:'',
-            userpassword:''
+            uname:'',
+            upwd:''
         }
      
     }
   },
   methods:{
     getuser(){
-        console.log(this.userform);
+        //console.log(this.userform);
         //console.log("账号："+this.userform.username,"密码："+this.userform.userpassword);
+        this.$axios({
+          method:"POST",
+          url:'/admin/account/login',
+          data:this.userform,
+          // 处理跨域
+          withCredentials: true,
+        }).then((res)=>{
+          //console.log(res);
+          const {message,status}=res.data;
+          if(status===0){
+            //登录成功，返回上一页
+            this.$router.back();
+          }else{
+            //登录失败，提示错误信息
+            this.$message.error(message);
+          }
+        })
     },
     reset(){
       this.username="";

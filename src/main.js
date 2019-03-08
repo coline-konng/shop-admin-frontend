@@ -17,7 +17,10 @@ import Admin from './pages/Admin.vue';
 import GoodsList from './pages/goods/GoodsList.vue';
 import CategoryList from './pages/category/CategoryList.vue';
 import GoodsAdd from './pages/goods/GoodsAdd.vue';
+import GoodsEdit from './pages/goods/GoodsEdit.vue';
 
+//
+axios.defaults.baseURL = 'http://127.0.0.1:8899';
 // 把axios绑定到vue实例的属性$axios
 Vue.prototype.$axios = axios;
 
@@ -38,6 +41,7 @@ const routes = [
         children: [
             { path: 'goods-list', component: GoodsList, meta: '商品管理' },
             { path: 'goods-add', component: GoodsAdd, meta: '新增商品' },
+            { path: 'goods-edit', component: GoodsEdit, meta: '编辑商品' },
             { path: 'category-list', component: CategoryList, meta: '栏目管理' }
         ]
     }
