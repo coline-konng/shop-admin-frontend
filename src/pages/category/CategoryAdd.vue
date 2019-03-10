@@ -158,9 +158,10 @@ export default {
       this.$axios({
         method: "POST",
         url: "/admin/category/add/goods",
-        data: this.form
+        data: this.form,
+        withCredentials: true,
       }).then(res => {
-        console.log(res);
+        //console.log(res);
         const { status, message } = res.data;
         if (status == 0) {
           this.$message({
