@@ -10,12 +10,15 @@
 export default {
   name: 'app',
   mounted(){
-    this.$axios.get('/admin/account/islogin').then((res)=>{
+    this.$axios({
+      url:'/admin/account/islogin',
+      // 处理跨域
+      withCredentials: true
+    }).then((res)=>{
       //console.log(res);
       //没有登录，跳转到登录页面
       if(res.data.code==='nologin'){
-        // 因为接口永远都是返回nologin，先注释
-        //this.$router.push('/login')
+        this.$router.push('/login')
       }
     })
   }
